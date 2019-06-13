@@ -3,18 +3,15 @@
 ## Table of Contents
 
 * [Instructions](#instructions)
-* [Contributing](#contributing)
+* [Dependencies](#dependencies)
 
 ## Instructions
+Open **index.html** in your favourite browser. The page shows 16 close cards which contains 8 pairs of symbols. **Click on 2 cards to try to match them**. If the two cards are iquals you get a match and the cards remain open, if not, the cards close again. You win the game when all de cards are open and paired.
+Try to match them in the shortest number of moves as you can! You will lose a star if you don't match all the symbols in less than 15 moves **(it is consider as a move when you open 2 cards)**. You will lose a second star if don't complete the game in less than 17 moves.
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+You can restart the game by clicking on the restart button whenever you want.
 
-To get started, open `js/app.js` and start building out the app's functionality
+## Dependencies
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+The symbols in the game are displayed from https://fontawesome.com/
+The pop up which shows the end of the game uses  https://sweetalert2.github.io/

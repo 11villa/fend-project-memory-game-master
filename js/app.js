@@ -48,29 +48,31 @@ function paintStars(number){
         stars.innerHTML=`<li><i class="fa fa-star"></i></li>
         <li><i class="fa fa-star"></i></li>
         <li><i class="fa fa-star"></i></li>`;
+        starsCounter=3;
     }
     if(number==15)
     {
         stars.innerHTML=`<li><i class="fa fa-star"></i></li>
         <li><i class="fa fa-star"></i></li>`;
+        starsCounter=2;
     }
     if(number==17)
     {
         stars.innerHTML=`<li><i class="fa fa-star"></i></li>`;
+        starsCounter=1;
     }
-    if(number==19)
-    {
-        stars.innerHTML=`<li></li>`;
-    }
+    
 }
 
 function cardsActions(allCards,moves,movesCounter){
     for (const allCard of allCards){
         allCard.addEventListener('click',function(){
+            
             if(!allCard.classList.contains("open")){
                 
                 if(openCards.length<2){
                     openCards.push(allCard);
+                
                     allCard.classList.add("open","show");
                     if(openCards.length==2){
                         
@@ -85,6 +87,16 @@ function cardsActions(allCards,moves,movesCounter){
                                 const secondCardClicked=openCards[1].firstElementChild.classList[1];
                                 if(firstCardClicked.classList.contains(secondCardClicked)) {
                                     openCard.classList.add("match","show");
+                                    contMatches++;
+                                    if(contMatches===16){
+                                        
+                                        Swal.fire({
+                                            type: 'success',
+                                            title: 'Congratulations, you win the game!',
+                                            text: `You complete the game in ${moves} moves (${starsCounter} stars) and ${timer} seconds`,
+                                            footer: '<a href>Do you want to play again?</a>'
+                                        })
+                                    }
                                 }
                             }
                             openCards=[];
@@ -107,7 +119,12 @@ function restartGame(restart){
         deck.innerHTML=bulidHtmlDeck(cardTypes,"");
         
         moves=0;
+        contMatches=0;
         movesCounter.innerText=moves;
+        timer=0;
+        clearTimeout(myTime);
+        document.getElementById("seconds").innerText=timer; 
+        startTimer();
     
         for(openCard of openCards){
             openCard.classList.remove("open","show","match");
@@ -123,6 +140,19 @@ function restartGame(restart){
         allCards=[];
     
     });
+}
+
+function startTimer(){
+    
+    
+    myTime= setInterval(function(){
+        if(contMatches<16){
+            timer++;   
+            console.log("i am inside timer bucle");
+            document.getElementById("seconds").innerText=timer;  
+        }
+    },1000);
+  
 }
 
 /*
@@ -150,8 +180,18 @@ let moves=0;
 let movesCounter= document.querySelector('.moves');
 movesCounter.innerText=moves;
 
+//initialize timer
+let myTime;
+let timer = 0;
+document.getElementById("seconds").innerText=timer; 
+
+//initializa contMatches
+let contMatches=0;
+
 //set up stars. 0 moves at the beginning
+let starsCounter;
 paintStars(0);
+startTimer();
 //click event listener and open cards logic
 let allCards=document.querySelectorAll('.card');
 let openCards=[];
@@ -160,11 +200,3 @@ cardsActions(allCards,moves,movesCounter);
 //click restart listener
 let restart=document.querySelector('.restart');
 restartGame(restart);
-
-
-
-
-
-
-
-
